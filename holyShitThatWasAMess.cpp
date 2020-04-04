@@ -101,19 +101,20 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
     void insert(int &val) {
-        data.push_back(val);
+        data.push_back(&val);
         floatUp(data.size() - 1);
     }
 
     int getTop() {
+        if (*data[0] == 0) deleteTop();
         if (data.empty()) return 0; // its empty now and using
         // zero won't change scores
-        return data[0];
+        return *data[0];
     }
 
     void deleteTop() {
         if (data.empty()) return; // there is nothing to delete
-        data[0] = 0; // set the value to pointer so
+        *data[0] = 0; // set the value to pointer so
         // the other player can't add it
 
         // replace the top with the bottom
@@ -126,18 +127,12 @@ public:
 
     void printData() {
         for (auto &v : data) {
-            cout << v << endl;
+            cout << *v << endl;
         }
     }
 
-    void deleteValue(int & val){
-        int indexToRemove = findIndexOf(val);
-        swap(data[indexToRemove], data[data.size() - 1]);
-        data.erase(data.end() - 1);
-        floatDown(indexToRemove);
-    }
 protected:
-    vector<int> data;
+    vector<int *> data;
     comparator compare;
 
     // change these into functions to improve readability
@@ -160,16 +155,12 @@ protected:
     int getMaxChild(int index) {
         int left = getLeftChild(index);
         int right = getRightChild(index);
-
         // check that both children exist
         if (right >= data.size()) {
             return left;
         }
-
-        // if one of them is zero float it down and return getMaxChild
-
         // otherwise return the bigger child
-        if (compare.greater(data[left], data[right])) {
+        if (compare.greater(*data[left], *data[right])) {
             return left;
         }
         return right;
@@ -178,7 +169,7 @@ protected:
     void floatUp(int index) {
         int parent = getParent(index);
         while (parent >= 0) {
-            if (compare.greater(data[index], data[parent])) {
+            if (compare.greater(*data[index], *data[parent])) {
                 swap(data[index], data[parent]);
             } else {
                 return; // position was found
@@ -192,7 +183,7 @@ protected:
         int maxChildIndex = getMaxChild(index);
         // while there still are children
         while (maxChildIndex < data.size()) {
-            if (compare.less(data[index], data[maxChildIndex])) {
+            if (compare.less(*data[index], *data[maxChildIndex])) {
                 swap(data[index], data[maxChildIndex]);
             } else {
                 return; // position was found
@@ -200,13 +191,6 @@ protected:
             index = maxChildIndex;
             maxChildIndex = getMaxChild(index);
         }
-    }
-
-    int findIndexOf(int & val){
-        for(int i = 0; i < data.size(); i++){
-            if(data[i] == val) return i;
-        }
-        return -1;
     }
 };
 
@@ -235,7 +219,11 @@ public:
         string coin = "";
         inputFile >> coin;
         scottsTurn = (coin == "HEADS");
-        // we will initialise the queues during the game
+
+        scottsPriorities = priorityQueue<scottsBrain>(
+                balls, scottsBrain());
+        rustysPriorities = priorityQueue<rustysBrain>(
+                balls, rustysBrain(balls));
     }
 
     void playOut() {
@@ -244,10 +232,6 @@ public:
         // ==================MEASURED TIME=========================
         // every turn takes out a ball so we can use that
         // for the total max turns
-        scottsPriorities = priorityQueue<scottsBrain>(
-                balls, scottsBrain());
-        rustysPriorities = priorityQueue<rustysBrain>(
-                balls, rustysBrain(balls));
         int turnsTaken = 0;
         while (turnsTaken < balls.size()) {
             for (int i = 0; i < maxTurnsPerRound
@@ -271,13 +255,11 @@ public:
     }
 
     void printScores() {
-        std::cout << "Took " << fixed << microseconds / 1000000 << " seconds "
-                                                                   "to find "
+        std::cout << "Took " << microseconds / 1000000 << " seconds to find "
                   << endl
                   << "\tscott : " << scottsScore
                   << endl
-                  << "\trusty : " << rustysScore
-                  << endl;
+                  << "\trusty : " << rustysScore;
     }
 
     void outputScoreToFile(string const &location) {
@@ -301,16 +283,12 @@ private:
     double microseconds{};
 
     void doRustysMove() {
-        int newBall = rustysPriorities.getTop();
-        rustysScore += newBall;
-        scottsPriorities.deleteValue(newBall);
+        rustysScore += rustysPriorities.getTop();
         rustysPriorities.deleteTop();
     }
 
     void doScottsTurn() {
-        int newBall = scottsPriorities.getTop();
-        scottsScore += newBall;
-        rustysPriorities.deleteValue(newBall);
+        scottsScore += scottsPriorities.getTop();
         scottsPriorities.deleteTop();
     }
 };
@@ -328,9 +306,9 @@ int main(int argc, char *argv[]) {
     int testCases;
     ifstream ifs(argv[1]);
     ifs >> testCases;
+    // it only read up to the end of the line so we have to ignore
+    ifs.ignore(numeric_limits<streamsize>::max(), ifs.widen('\n'));
     for (int i = 0; i < testCases; i++) {
-        // it only read up to the end of the line so we have to ignore
-        ifs.ignore(numeric_limits<streamsize>::max(), ifs.widen('\n'));
         match m(ifs);
         m.playOut();
 
