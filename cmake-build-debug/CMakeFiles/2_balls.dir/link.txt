@@ -1,1 +1,1 @@
-/usr/bin/c++   -O3 -g   CMakeFiles/2_balls.dir/main.cpp.o  -o 2_balls 
+/usr/bin/c++  -g   CMakeFiles/2_balls.dir/main.cpp.o  -o 2_balls 

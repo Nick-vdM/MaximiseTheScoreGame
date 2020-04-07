@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named randomInput
-
-# Build rule for target.
-randomInput: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 randomInput
-.PHONY : randomInput
-
-# fast build rule for target.
-randomInput/fast:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/build
-.PHONY : randomInput/fast
-
-#=============================================================================
 # Target rules for targets named 2_balls
 
 # Build rule for target.
@@ -137,44 +124,17 @@ randomInput/fast:
 .PHONY : 2_balls/fast
 
 #=============================================================================
-# Target rules for targets named holyShitThatWasAMess
+# Target rules for targets named tester
 
 # Build rule for target.
-holyShitThatWasAMess: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 holyShitThatWasAMess
-.PHONY : holyShitThatWasAMess
+tester: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tester
+.PHONY : tester
 
 # fast build rule for target.
-holyShitThatWasAMess/fast:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/build
-.PHONY : holyShitThatWasAMess/fast
-
-holyShitThatWasAMess.o: holyShitThatWasAMess.cpp.o
-
-.PHONY : holyShitThatWasAMess.o
-
-# target to build an object file
-holyShitThatWasAMess.cpp.o:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/holyShitThatWasAMess.cpp.o
-.PHONY : holyShitThatWasAMess.cpp.o
-
-holyShitThatWasAMess.i: holyShitThatWasAMess.cpp.i
-
-.PHONY : holyShitThatWasAMess.i
-
-# target to preprocess a source file
-holyShitThatWasAMess.cpp.i:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/holyShitThatWasAMess.cpp.i
-.PHONY : holyShitThatWasAMess.cpp.i
-
-holyShitThatWasAMess.s: holyShitThatWasAMess.cpp.s
-
-.PHONY : holyShitThatWasAMess.s
-
-# target to generate assembly for a file
-holyShitThatWasAMess.cpp.s:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/holyShitThatWasAMess.cpp.s
-.PHONY : holyShitThatWasAMess.cpp.s
+tester/fast:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/build
+.PHONY : tester/fast
 
 main.o: main.cpp.o
 
@@ -203,32 +163,32 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/2_balls.dir/build.make CMakeFiles/2_balls.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-randomInputFileGenerator.o: randomInputFileGenerator.cpp.o
+tester.o: tester.cpp.o
 
-.PHONY : randomInputFileGenerator.o
+.PHONY : tester.o
 
 # target to build an object file
-randomInputFileGenerator.cpp.o:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/randomInputFileGenerator.cpp.o
-.PHONY : randomInputFileGenerator.cpp.o
+tester.cpp.o:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/tester.cpp.o
+.PHONY : tester.cpp.o
 
-randomInputFileGenerator.i: randomInputFileGenerator.cpp.i
+tester.i: tester.cpp.i
 
-.PHONY : randomInputFileGenerator.i
+.PHONY : tester.i
 
 # target to preprocess a source file
-randomInputFileGenerator.cpp.i:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/randomInputFileGenerator.cpp.i
-.PHONY : randomInputFileGenerator.cpp.i
+tester.cpp.i:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/tester.cpp.i
+.PHONY : tester.cpp.i
 
-randomInputFileGenerator.s: randomInputFileGenerator.cpp.s
+tester.s: tester.cpp.s
 
-.PHONY : randomInputFileGenerator.s
+.PHONY : tester.s
 
 # target to generate assembly for a file
-randomInputFileGenerator.cpp.s:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/randomInputFileGenerator.cpp.s
-.PHONY : randomInputFileGenerator.cpp.s
+tester.cpp.s:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/tester.cpp.s
+.PHONY : tester.cpp.s
 
 # Help Target
 help:
@@ -238,18 +198,14 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... randomInput"
 	@echo "... 2_balls"
-	@echo "... holyShitThatWasAMess"
-	@echo "... holyShitThatWasAMess.o"
-	@echo "... holyShitThatWasAMess.i"
-	@echo "... holyShitThatWasAMess.s"
+	@echo "... tester"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... randomInputFileGenerator.o"
-	@echo "... randomInputFileGenerator.i"
-	@echo "... randomInputFileGenerator.s"
+	@echo "... tester.o"
+	@echo "... tester.i"
+	@echo "... tester.s"
 .PHONY : help
 
 

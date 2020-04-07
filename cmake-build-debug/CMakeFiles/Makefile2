@@ -63,43 +63,10 @@ CMAKE_BINARY_DIR = "/mnt/e/OneDrive - Griffith University/Second Year/First Trim
 # Directory level rules for the build root directory
 
 # The main recursive "clean" target.
-clean: CMakeFiles/randomInput.dir/clean
 clean: CMakeFiles/2_balls.dir/clean
-clean: CMakeFiles/holyShitThatWasAMess.dir/clean
+clean: CMakeFiles/tester.dir/clean
 
 .PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/randomInput.dir
-
-# All Build rule for target.
-CMakeFiles/randomInput.dir/all:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/depend
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=5,6 "Built target randomInput"
-.PHONY : CMakeFiles/randomInput.dir/all
-
-# Include target in all.
-all: CMakeFiles/randomInput.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/randomInput.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/randomInput.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/randomInput.dir/rule
-
-# Convenience name for target.
-randomInput: CMakeFiles/randomInput.dir/rule
-
-.PHONY : randomInput
-
-# clean rule for target.
-CMakeFiles/randomInput.dir/clean:
-	$(MAKE) -f CMakeFiles/randomInput.dir/build.make CMakeFiles/randomInput.dir/clean
-.PHONY : CMakeFiles/randomInput.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/2_balls.dir
@@ -134,36 +101,36 @@ CMakeFiles/2_balls.dir/clean:
 .PHONY : CMakeFiles/2_balls.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/holyShitThatWasAMess.dir
+# Target rules for target CMakeFiles/tester.dir
 
 # All Build rule for target.
-CMakeFiles/holyShitThatWasAMess.dir/all:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/depend
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target holyShitThatWasAMess"
-.PHONY : CMakeFiles/holyShitThatWasAMess.dir/all
+CMakeFiles/tester.dir/all:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/depend
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target tester"
+.PHONY : CMakeFiles/tester.dir/all
 
 # Include target in all.
-all: CMakeFiles/holyShitThatWasAMess.dir/all
+all: CMakeFiles/tester.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/holyShitThatWasAMess.dir/rule: cmake_check_build_system
+CMakeFiles/tester.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/holyShitThatWasAMess.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tester.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/holyShitThatWasAMess.dir/rule
+.PHONY : CMakeFiles/tester.dir/rule
 
 # Convenience name for target.
-holyShitThatWasAMess: CMakeFiles/holyShitThatWasAMess.dir/rule
+tester: CMakeFiles/tester.dir/rule
 
-.PHONY : holyShitThatWasAMess
+.PHONY : tester
 
 # clean rule for target.
-CMakeFiles/holyShitThatWasAMess.dir/clean:
-	$(MAKE) -f CMakeFiles/holyShitThatWasAMess.dir/build.make CMakeFiles/holyShitThatWasAMess.dir/clean
-.PHONY : CMakeFiles/holyShitThatWasAMess.dir/clean
+CMakeFiles/tester.dir/clean:
+	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/clean
+.PHONY : CMakeFiles/tester.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -11,57 +11,46 @@
 
 using namespace std;
 
-struct scottsBrain {
-    scottsBrain() {}
-
-    scottsBrain(vector<int> &data) {}
-
-    bool greater(int &v1, int &v2) {
-        return v1 > v2;
+class rustysBall {
+    // basically just a pair<int, int*> because
+    // the comparator in that case is broken, but
+    // we still want to use the state of the ball
+public:
+    explicit rustysBall(int &val) {
+        valuePointer = &val;
+        sumOfDigits = getSumOfDigits(val);
     }
 
-    bool less(int &v1, int &v2) {
-        return v1 < v2;
-    }
-};
-
-struct rustysBrain {
-    rustysBrain() = default;
-
-    rustysBrain(vector<int> &data) {
-        for (auto &val : data) {
-            sumOfDigits[val] = sumDigits(val);
-        }
+    rustysBall &operator=(const int &other) {
+        if (*valuePointer == other) return *this;
+        *valuePointer = other;
+        sumOfDigits = other;
+        return *this;
     }
 
-    bool greater(int &v1, int &v2) {
-        // compare digits
-        if (sumOfDigits[v1] > sumOfDigits[v2]) {
-            return true;
-        }
-        if (sumOfDigits[v1] < sumOfDigits[v2]) {
-            return false;
-        }
-        // in the case they're equal return the larger one
-        return v1 > v2;
+    rustysBall &operator=(const int &&other) {
+        if (*valuePointer == other) return *this;
+        *valuePointer = other;
+        sumOfDigits = other;
+        return *this;
     }
 
-    bool less(int &v1, int &v2) {
-        // compare digits
-        if (sumOfDigits[v1] < sumOfDigits[v2]) {
-            return true;
-        }
-        if (sumOfDigits[v1] > sumOfDigits[v2]) {
-            return false;
-        }
-        // in the case they're equal return the larger one
-        return v1 < v2;
-    }
+    operator int() const { return *valuePointer; }
 
-    // stores the sum of digits of each pointer
-    unordered_map<int, int> sumOfDigits;
+    int sumOfDigits;
+    int *valuePointer;
 
-    int sumDigits(int val) {
+    // have to override all the comparators
+    friend bool operator<(const rustysBall &r1, const rustysBall &r2);
+
+    friend bool operator>(const rustysBall &r1, const rustysBall &r2);
+
+    friend bool operator==(const rustysBall &r1, const int &i);
+
+    // useful for debugging
+    friend ostream &operator<<(std::ostream &os, const rustysBall &obj);
+
+    static int getSumOfDigits(int val) {
         int sum = 0;
         while (val != 0) {
             sum += val % 10;
@@ -71,51 +60,71 @@ struct rustysBrain {
     }
 };
 
-template<class comparator>
+bool operator<(const rustysBall &r1, const rustysBall &r2) {
+    if (r1.sumOfDigits < r2.sumOfDigits) {
+        return true;
+    }
+    if (r1.sumOfDigits > r2.sumOfDigits) {
+        return false;
+    }
+    return *r1.valuePointer < *r2.valuePointer;
+}
+
+bool operator>(const rustysBall &r1, const rustysBall &r2) {
+    if (r1.sumOfDigits > r2.sumOfDigits) {
+        return true;
+    }
+    if (r1.sumOfDigits < r2.sumOfDigits) {
+        return false;
+    }
+    return *r1.valuePointer > *r2.valuePointer;
+}
+
+bool operator==(const rustysBall &r1, const int &i) {
+    // allows us to compare it to integers
+    return *r1.valuePointer == i;
+}
+
+ostream &operator<<(std::ostream &os, const rustysBall &obj) {
+    return os << *obj.valuePointer;
+}
+
+template<class T>
 class priorityQueue {
 public:
-    priorityQueue() {} // so empty versions can exist
-
-    explicit priorityQueue(comparator const &compare)
-            : data{}, compare(compare) {}
-
-    explicit priorityQueue(comparator const &&compare)
-            : data{}, compare(compare) {}
+    priorityQueue() = default; // so empty versions can exist
 
     // only allow l-value inputData because we need the pointers
-    priorityQueue(vector<int> &inputData, comparator &&compare)
-            : compare(compare) {
+    explicit priorityQueue(vector<T> &inputData) {
         data.reserve(inputData.size());
         for (auto &val : inputData) {
-            insert(val);
+            data.push_back(&val);
+        }
+        for (int i = data.size() / 2 - 1; i >= 0; i--) {
+            floatDown(i);
         }
     }
 
-    priorityQueue(vector<int> &inputData, comparator &compare)
-            : compare(compare) {
-        data.reserve(inputData.size());
-        for (auto &val : inputData) {
-            insert(val);
-        }
-    }
 ////////////////////////////////////////////////////////////////////////////////
 
-    void insert(int &val) {
-        data.push_back(val);
+    void insert(T &val) {
+        data.push_back(&val);
         floatUp(data.size() - 1);
     }
 
     int getTop() {
-        if (data.empty()) return 0; // its empty now and using
-        // zero won't change scores
-        return data[0];
+        // in case its empty maxNode will cause sigseg
+        if (data.empty()) return 0;
+        int top = getMaxNode();
+        return static_cast<int>(*data[top]);
     }
 
     void deleteTop() {
         if (data.empty()) return; // there is nothing to delete
-        data[0] = 0; // set the value to pointer so
+//        printData();
+        int top = getMaxNode();
+        *data[top] = 0; // set the value to pointer so
         // the other player can't add it
-
         // replace the top with the bottom
         data[0] = data[data.size() - 1];
         // remove the bottom
@@ -125,20 +134,20 @@ public:
     }
 
     void printData() {
-        for (auto &v : data) {
-            cout << v << endl;
-        }
+//        for (int i = 0; i < data.size(); i += 5){
+//            for(int j = i; j < i + 5; j++){
+//                cout << *data[j] << " ";
+//            }
+//            cout << endl;
+//        }
+        int val = *data[0];
+        if (val == 0) val = *data[getMaxChild(0)];
+        cout << "\tpopping " << val << endl << "===========" << endl;
+
     }
 
-    void deleteValue(int & val){
-        int indexToRemove = findIndexOf(val);
-        swap(data[indexToRemove], data[data.size() - 1]);
-        data.erase(data.end() - 1);
-        floatDown(indexToRemove);
-    }
-protected:
-    vector<int> data;
-    comparator compare;
+private:
+    vector<T *> data;
 
     // change these into functions to improve readability
     // since our vector's index starts at 0 these formulas are slightly
@@ -160,25 +169,40 @@ protected:
     int getMaxChild(int index) {
         int left = getLeftChild(index);
         int right = getRightChild(index);
-
+        if (left < data.size() && *data[left] == 0) {
+            left = getMaxChild(left);
+        }
+        if (right < data.size() && *data[right] == 0) {
+            right = getMaxChild(right);
+        }
         // check that both children exist
         if (right >= data.size()) {
             return left;
+        }
+        if (left >= data.size()) {
+            return right;
         }
 
         // if one of them is zero float it down and return getMaxChild
 
         // otherwise return the bigger child
-        if (compare.greater(data[left], data[right])) {
+        if (*data[left] > *data[right]) {
             return left;
         }
         return right;
     }
 
+    int getMaxNode() {
+        if (*data[0] == 0) {
+            return getMaxChild(0);
+        }
+        return 0;
+    }
+
     void floatUp(int index) {
         int parent = getParent(index);
         while (parent >= 0) {
-            if (compare.greater(data[index], data[parent])) {
+            if (*data[index] > *data[parent]) {
                 swap(data[index], data[parent]);
             } else {
                 return; // position was found
@@ -192,29 +216,17 @@ protected:
         int maxChildIndex = getMaxChild(index);
         // while there still are children
         while (maxChildIndex < data.size()) {
-            if (compare.less(data[index], data[maxChildIndex])) {
+            if (*data[index] < *data[maxChildIndex]) {
                 swap(data[index], data[maxChildIndex]);
             } else {
-                return; // position was found
+                return;
             }
             index = maxChildIndex;
             maxChildIndex = getMaxChild(index);
         }
     }
-
-    int findIndexOf(int & val){
-        for(int i = 0; i < data.size(); i++){
-            if(data[i] == val) return i;
-        }
-        return -1;
-    }
 };
 
-istringstream getStringstreamOfLine(ifstream &inputFile) {
-    string line;
-    getline(inputFile, line);
-    return istringstream(line);
-}
 
 class match {
 public:
@@ -244,18 +256,19 @@ public:
         // ==================MEASURED TIME=========================
         // every turn takes out a ball so we can use that
         // for the total max turns
-        scottsPriorities = priorityQueue<scottsBrain>(
-                balls, scottsBrain());
-        rustysPriorities = priorityQueue<rustysBrain>(
-                balls, rustysBrain(balls));
+        scottsPriorities = priorityQueue<int>(balls);
+        auto rustysBalls = getDigitSumPairVector(balls);
+        rustysPriorities = priorityQueue<rustysBall>(rustysBalls);
         int turnsTaken = 0;
         while (turnsTaken < balls.size()) {
             for (int i = 0; i < maxTurnsPerRound
                             && turnsTaken < balls.size(); i++) {
                 if (scottsTurn) {
+//                    cout << "SCOTT" << endl;
                     doScottsTurn();
                     turnsTaken++;
                 } else {
+//                    cout << "RUSTY" << endl;
                     doRustysMove();
                     turnsTaken++;
                 }
@@ -287,9 +300,15 @@ public:
     }
 
 private:
-    priorityQueue<scottsBrain> scottsPriorities;
-    priorityQueue<rustysBrain> rustysPriorities;
+    priorityQueue<int> scottsPriorities;
+    priorityQueue<rustysBall> rustysPriorities;
     vector<int> balls;
+
+    static istringstream getStringstreamOfLine(ifstream &inputFile) {
+        string line;
+        getline(inputFile, line);
+        return istringstream(line);
+    }
 
     int maxTurnsPerRound;
 
@@ -300,17 +319,28 @@ private:
 
     double microseconds{};
 
+    vector<rustysBall> static getDigitSumPairVector(vector<int> &vals) {
+        vector<rustysBall> rustysBalls;
+        rustysBalls.reserve(vals.size());
+        for (auto &v : vals) {
+            rustysBalls.emplace_back(v);
+        }
+        return rustysBalls;
+    }
+
+
     void doRustysMove() {
-        int newBall = rustysPriorities.getTop();
-        rustysScore += newBall;
-        scottsPriorities.deleteValue(newBall);
+        rustysScore += rustysPriorities.getTop();
+//        cout << "RUSTY: " << rustysPriorities.getTop()
+//             << " sum of digits "
+//             << rustysBall::getSumOfDigits(rustysPriorities.getTop())
+//             << endl;
         rustysPriorities.deleteTop();
     }
 
     void doScottsTurn() {
-        int newBall = scottsPriorities.getTop();
-        scottsScore += newBall;
-        rustysPriorities.deleteValue(newBall);
+        scottsScore += scottsPriorities.getTop();
+//        cout << "SCOTT: " << scottsPriorities.getTop() << endl;
         scottsPriorities.deleteTop();
     }
 };
