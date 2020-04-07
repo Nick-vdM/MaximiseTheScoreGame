@@ -17,28 +17,25 @@ class rustysBall {
     // we still want to use the state of the ball
 public:
     explicit rustysBall(int &val) {
-        valuePointer = &val;
+        value = &val;
         sumOfDigits = getSumOfDigits(val);
     }
 
     rustysBall &operator=(const int &other) {
-        if (*valuePointer == other) return *this;
-        *valuePointer = other;
+        if (*value == other) return *this;
+        *value = other;
         sumOfDigits = other;
         return *this;
     }
 
     rustysBall &operator=(const int &&other) {
-        if (*valuePointer == other) return *this;
-        *valuePointer = other;
-        sumOfDigits = other;
+        if (*value == other) return *this;
+        *value = other;
+        sumOfDigits = getSumOfDigits(other);
         return *this;
     }
 
-    operator int() const { return *valuePointer; }
-
-    int sumOfDigits;
-    int *valuePointer;
+    operator int() const { return *value; }
 
     // have to override all the comparators
     friend bool operator<(const rustysBall &r1, const rustysBall &r2);
@@ -49,6 +46,10 @@ public:
 
     // useful for debugging
     friend ostream &operator<<(std::ostream &os, const rustysBall &obj);
+
+private:
+    int sumOfDigits;
+    int *value;
 
     static int getSumOfDigits(int val) {
         int sum = 0;
@@ -67,7 +68,7 @@ bool operator<(const rustysBall &r1, const rustysBall &r2) {
     if (r1.sumOfDigits > r2.sumOfDigits) {
         return false;
     }
-    return *r1.valuePointer < *r2.valuePointer;
+    return *r1.value < *r2.value;
 }
 
 bool operator>(const rustysBall &r1, const rustysBall &r2) {
@@ -77,16 +78,16 @@ bool operator>(const rustysBall &r1, const rustysBall &r2) {
     if (r1.sumOfDigits < r2.sumOfDigits) {
         return false;
     }
-    return *r1.valuePointer > *r2.valuePointer;
+    return *r1.value > *r2.value;
 }
 
 bool operator==(const rustysBall &r1, const int &i) {
     // allows us to compare it to integers
-    return *r1.valuePointer == i;
+    return *r1.value == i;
 }
 
 ostream &operator<<(std::ostream &os, const rustysBall &obj) {
-    return os << *obj.valuePointer;
+    return os << *obj.value;
 }
 
 template<class T>
@@ -266,12 +267,11 @@ public:
                 if (scottsTurn) {
 //                    cout << "SCOTT" << endl;
                     doScottsTurn();
-                    turnsTaken++;
                 } else {
 //                    cout << "RUSTY" << endl;
                     doRustysMove();
-                    turnsTaken++;
                 }
+                turnsTaken++;
             }
             // flip flop
             scottsTurn = !scottsTurn;
@@ -284,8 +284,8 @@ public:
     }
 
     void printScores() {
-        std::cout << "Took " << fixed << microseconds / 1000000 << " seconds "
-                                                                   "to find "
+        std::cout << "Took " << fixed << microseconds / 1000000
+                  << " seconds to find "
                   << endl
                   << "\tscott : " << scottsScore
                   << endl
