@@ -1,4 +1,4 @@
-/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/2_balls.dir
-/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/tester.dir
+/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/2_balls.dir
+/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles/tester.dir

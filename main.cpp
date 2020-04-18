@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
-#include<unordered_map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -45,9 +45,8 @@ public:
     friend bool operator==(const rustysBall &r1, const int &i);
 
     // useful for debugging
-    friend ostream &operator<<(std::ostream &os, const rustysBall &obj);
+    friend ostream &operator<<(ostream &os, const rustysBall &obj);
 
-private:
     int sumOfDigits;
     int *value;
 
@@ -86,7 +85,7 @@ bool operator==(const rustysBall &r1, const int &i) {
     return *r1.value == i;
 }
 
-ostream &operator<<(std::ostream &os, const rustysBall &obj) {
+ostream &operator<<(ostream &os, const rustysBall &obj) {
     return os << *obj.value;
 }
 
@@ -252,7 +251,7 @@ public:
     }
 
     void playOut() {
-        auto startClock = std::chrono::high_resolution_clock::now();
+        auto startClock = chrono::high_resolution_clock::now();
 
         // ==================MEASURED TIME=========================
         // every turn takes out a ball so we can use that
@@ -277,14 +276,14 @@ public:
             scottsTurn = !scottsTurn;
         }
         // ========================================================
-        auto endClock = std::chrono::high_resolution_clock::now();
+        auto endClock = chrono::high_resolution_clock::now();
         microseconds =
-                std::chrono::duration_cast<std::chrono::microseconds>
+                chrono::duration_cast<chrono::microseconds>
                         (endClock - startClock).count();
     }
 
     void printScores() {
-        std::cout << "Took " << fixed << microseconds / 1000000
+        cout << "Took " << fixed << microseconds / 1000000
                   << " seconds to find "
                   << endl
                   << "\tscott : " << scottsScore
@@ -294,7 +293,7 @@ public:
     }
 
     void outputScoreToFile(string const &location) {
-        ofstream ofs(location, std::ios_base::app);
+        ofstream ofs(location, ios_base::app);
         ofs << scottsScore << " " << rustysScore
             << endl;
     }
@@ -331,28 +330,28 @@ private:
 
     void doRustysMove() {
         rustysScore += rustysPriorities.getTop();
-//        cout << "RUSTY: " << rustysPriorities.getTop()
-//             << " sum of digits "
-//             << rustysBall::getSumOfDigits(rustysPriorities.getTop())
-//             << endl;
+        cout << "RUSTY: " << rustysPriorities.getTop()
+             << " sum of digits "
+             << rustysBall::getSumOfDigits(rustysPriorities.getTop())
+             << endl;
         rustysPriorities.deleteTop();
     }
 
     void doScottsTurn() {
         scottsScore += scottsPriorities.getTop();
-//        cout << "SCOTT: " << scottsPriorities.getTop() << endl;
+        cout << "SCOTT: " << scottsPriorities.getTop() << endl;
         scottsPriorities.deleteTop();
     }
 };
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
-        std::cout << "Error: an input and an output file is required."
-                  << std::endl
+        cout << "Error: an input and an output file is required."
+                  << endl
                   << "Call the program like `program.exe input.txt output.txt`"
-                  << std::endl
+                  << endl
                   << "or `program.exe input.txt`"
-                  << std::endl;
+                  << endl;
     }
 
     int testCases;

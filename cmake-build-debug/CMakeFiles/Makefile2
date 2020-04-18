@@ -6,16 +6,6 @@ default_target: all
 
 .PHONY : default_target
 
-# The main recursive all target
-all:
-
-.PHONY : all
-
-# The main recursive preinstall target
-preinstall:
-
-.PHONY : preinstall
-
 #=============================================================================
 # Special targets provided by cmake.
 
@@ -45,28 +35,39 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/nicol/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/nicol/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls"
+CMAKE_SOURCE_DIR = "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug"
+CMAKE_BINARY_DIR = "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug"
 
 #=============================================================================
 # Directory level rules for the build root directory
+
+# The main recursive "all" target.
+all: CMakeFiles/2_balls.dir/all
+all: CMakeFiles/tester.dir/all
+
+.PHONY : all
 
 # The main recursive "clean" target.
 clean: CMakeFiles/2_balls.dir/clean
 clean: CMakeFiles/tester.dir/clean
 
 .PHONY : clean
+
+# The main recursive "preinstall" target.
+preinstall:
+
+.PHONY : preinstall
 
 #=============================================================================
 # Target rules for target CMakeFiles/2_balls.dir
@@ -75,19 +76,14 @@ clean: CMakeFiles/tester.dir/clean
 CMakeFiles/2_balls.dir/all:
 	$(MAKE) -f CMakeFiles/2_balls.dir/build.make CMakeFiles/2_balls.dir/depend
 	$(MAKE) -f CMakeFiles/2_balls.dir/build.make CMakeFiles/2_balls.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target 2_balls"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target 2_balls"
 .PHONY : CMakeFiles/2_balls.dir/all
-
-# Include target in all.
-all: CMakeFiles/2_balls.dir/all
-
-.PHONY : all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/2_balls.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/2_balls.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/2_balls.dir/rule
 
 # Convenience name for target.
@@ -107,19 +103,14 @@ CMakeFiles/2_balls.dir/clean:
 CMakeFiles/tester.dir/all:
 	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/depend
 	$(MAKE) -f CMakeFiles/tester.dir/build.make CMakeFiles/tester.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target tester"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target tester"
 .PHONY : CMakeFiles/tester.dir/all
-
-# Include target in all.
-all: CMakeFiles/tester.dir/all
-
-.PHONY : all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tester.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tester.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/e/OneDrive - Griffith University/Second Year/First Trimester/2801ICT - Computing Algorithms/assignments/2_balls/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/tester.dir/rule
 
 # Convenience name for target.
